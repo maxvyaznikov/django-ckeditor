@@ -1,16 +1,12 @@
 /*
 Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
-For licensing, see LICENSE.html or http://ckeditor.com/license
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 
 body
 {
-	/* Font */
-	font-family: sans-serif, Arial, Verdana, "Trebuchet MS";
-	font-size: 12px;
-
-	/* Text color */
-	color: #333;
+	font: 12px Arial, sans-serif;
+	color: #2a2a2a;
 
 	/* Remove the background color to make it transparent */
 	background-color: #fff;
@@ -20,8 +16,9 @@ body
 
 .cke_editable
 {
-	font-size: 13px;
-	line-height: 1.6em;
+    color: #2a2a2a;
+    font-size: 14px;
+	line-height: 1.2em;
 }
 
 blockquote
@@ -66,6 +63,61 @@ h1,h2,h3,h4,h5,h6
 	font-weight: normal;
 	line-height: 1.2em;
 }
+h1 {
+    color: #00abee;
+    font: 25px/30px 'ArialRoundedMTProCyr-Bold', Arial, sans-serif;
+    margin-bottom: 0.5em;
+    padding-top: 0.5em;
+}
+h3 {
+    font-size: 14px;
+    font-weight: bold;
+}
+p,
+li {
+    margin: 0.9em 0;
+}
+ul,
+ol {
+    margin-left: 20px;
+}
+li {
+    list-style-image: url('../../i/li-bullit.png');
+}
+ul.unstyled li {
+    list-style: none;
+}
+ol {
+    counter-reset: li; /* Initiate a counter */
+    margin-left: 40px;
+}
+ol > li {
+    color: black;
+    font-size: 14px;
+    list-style: decimal; /* standart decimal for crossbrowser-compatibility */
+}
+ol > li:before {
+    content: counter(li) "."; /* Use the counter as content */
+    counter-increment: li; /* Increment the counter by 1 */
+    /* Position and style the number */
+    position: relative;
+    z-index: 10;
+    margin-top: -2px;
+    margin-left: -2em;
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    box-sizing:border-box;
+    width:2em;
+    /* Some space between the number and the content in browsers that support
+    generated content but not positioning it (Camino 2 is one example) */
+    margin-right:8px;
+    padding:4px;
+    color: #00aeef;
+    background-color: white;  /*hide standart decimal */
+    font-weight:bold;
+    font-family:"Helvetica Neue", Arial, sans-serif;
+    text-align:center;
+}
 
 hr
 {
@@ -96,4 +148,8 @@ pre
 {
 	white-space: pre-wrap; /* CSS 2.1 */
 	word-wrap: break-word; /* IE7 */
+}
+
+.marker {
+    background-color: Yellow;
 }
