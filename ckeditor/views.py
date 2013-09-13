@@ -7,6 +7,8 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.template.defaultfilters import slugify
+from unidecode import unidecode
 
 try:
     from PIL import Image, ImageOps
@@ -25,21 +27,25 @@ except ImportError:
 THUMBNAIL_SIZE = (75, 75)
 
 
-def get_available_name(name):
+def get_available_name(raw_name):
     """
     Returns a filename that's free on the target storage system, and
     available for new content to be written to.
     """
-    dir_name, file_name = os.path.split(name)
+    dir_name, file_name = os.path.split(raw_name)
     file_root, file_ext = os.path.splitext(file_name)
-    # If the filename already exists, keep adding an underscore (before the
+
+    file_root = slugify(unidecode(unicode(file_root)))
+    safe_name = os.path.join(dir_name, file_root + file_ext)
+    counter = 0
+    # If the filename already exists, keep adding an counter value (before the
     # file extension, if one exists) to the filename until the generated
     # filename doesn't exist.
-    while os.path.exists(name):
-        file_root += '_'
+    while os.path.exists(safe_name):
+        file_root += '_'+ str(counter)
         # file_ext includes the dot.
-        name = os.path.join(dir_name, file_root + file_ext)
-    return name
+        safe_name = os.path.join(dir_name, file_root + file_ext)
+    return safe_name
 
 
 def get_thumb_filename(file_name):
